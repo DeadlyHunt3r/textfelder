@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Passwortfelder</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #121212; /* Dunkler Hintergrund */
+      color: white; /* Helle Schrift */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+    }
+    .input-group {
+      position: relative;
+      margin-bottom: 15px;
+    }
+    .input-group input {
+      width: 250px;
+      padding: 10px;
+      font-size: 16px;
+      padding-right: 30px; /* Platz für das Symbol */
+      box-sizing: border-box;
+      background-color: #333; /* Dunklere Eingabefelder */
+      border: 1px solid #555;
+      color: white;
+      border-radius: 5px;
+    }
+    .input-group input:focus {
+      outline: none;
+      border-color: #888;
+    }
+    .status-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      pointer-events: none;
+    }
+    .red {
+      color: red;
+    }
+    .green {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="input-group">
+      <input type="password" id="input1" placeholder="Passwort 1">
+      <span class="status-icon red" id="icon1">&#x2717;</span>
+    </div>
+    <div class="input-group">
+      <input type="password" id="input2" placeholder="Passwort 2">
+      <span class="status-icon red" id="icon2">&#x2717;</span>
+    </div>
+    <div class="input-group">
+      <input type="password" id="input3" placeholder="Passwort 3">
+      <span class="status-icon red" id="icon3">&#x2717;</span>
+    </div>
+    <div class="input-group">
+      <input type="password" id="input4" placeholder="Passwort 4">
+      <span class="status-icon red" id="icon4">&#x2717;</span>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const passwords = {
+        input1: "Schmerz",
+        input2: "Rache",
+        input3: "Erlösung",
+        input4: "Freiheit"
+      };
+
+      Object.keys(passwords).forEach(function(inputId) {
+        const inputElem = document.getElementById(inputId);
+        const iconElem = document.getElementById("icon" + inputId.slice(-1));
+
+        inputElem.addEventListener("input", function() {
+          if (inputElem.value === passwords[inputId]) {
+            iconElem.textContent = "\u2713"; // Grüner Haken
+            iconElem.classList.remove("red");
+            iconElem.classList.add("green");
+          } else {
+            iconElem.textContent = "\u2717"; // Rotes X
+            iconElem.classList.remove("green");
+            iconElem.classList.add("red");
+          }
+
+          if (allePasswoerterKorrekt()) {
+            window.location.href = "https://example.com"; // Ziel-Link hier anpassen
+          }
+        });
+      });
+
+      function allePasswoerterKorrekt() {
+        return Object.keys(passwords).every(function(inputId) {
+          return document.getElementById(inputId).value === passwords[inputId];
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
